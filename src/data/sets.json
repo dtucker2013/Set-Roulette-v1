@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "note": "Seed catalog. Titles/authors are hydrated at runtime from YouTube oEmbed, so entries self-correct. IDs that 404 or block embedding are marked unavailable by the client and skipped.",
+  "genres": [
+    {
+      "id": "riddim",
+      "name": "Riddim Dubstep",
+      "tagline": "Triplet bass, no survivors",
+      "emoji": "🔊",
+      "query": "riddim dubstep mix",
+      "sets": [
+        { "id": "GXA6g_UPZz0", "title": "Best Riddim Dubstep Mix" },
+        { "id": "dcpPPoZbi6U", "title": "Riddim Dubstep Mix — Samplifire, MUERTE, HOL!, SISTO" },
+        { "id": "t1RGwEb5x6Q", "title": "Riddim Dubstep Mix — 1 Hour Gaming Bass" },
+        { "id": "KijXhRF71hU", "title": "Best of SVDDEN DEATH — Riddim Dubstep" },
+        { "id": "1RmtlW5QXTM", "title": "Riddim Dubstep Mix — October Madness" },
+        { "id": "vlLPYOZYntg", "title": "New Year's Eve Riddim Dubstep Mix" },
+        { "id": "tufGzuj_ghg", "title": "Riddim Dubstep Mix — Space & Alien Bass" }
+      ]
+    },
+    {
+      "id": "hiphop",
+      "name": "Hip Hop",
+      "tagline": "Throwbacks and long DJ sets",
+      "emoji": "🎤",
+      "query": "hip hop dj mix throwback",
+      "sets": [
+        { "id": "mV5RvkmTvyg", "title": "90s / 2000s Hip Hop Mix — Old School Rap Classics" },
+        { "id": "3ok23UzySrc", "title": "90s & 2000s Hip Hop + R&B Throwback — Late Night DJ Set" },
+        { "id": "NYhplVq_tr0", "title": "Old School Hip Hop & R&B Mix — 1hr DJ Set" },
+        { "id": "gwU3f0zNTnc", "title": "100% R&B / Hip Hop Old School Throwback Mix" },
+        { "id": "VAIHSmk0AoI", "title": "Hip Hop Throwback Mix (90s–2000s)" },
+        { "id": "5YqSc8N7wik", "title": "DJ Mix — Classic Hip Hop of the 90s / 2000s / Now" },
+        { "id": "4RcNzEKcgKQ", "title": "90s / 2000s Funky R&B Hip Hop DJ Mix" },
+        { "id": "ovexSzIlvHE", "title": "R&B | Hip Hop DJ Mix — 90s / 00s Classics" },
+        { "id": "GIg4KfkxcNI", "title": "Hip Hop R&B Old School Mix — Throwback" }
+      ]
+    },
+    {
+      "id": "lofi",
+      "name": "Lofi",
+      "tagline": "Beats to relax / study to",
+      "emoji": "🌙",
+      "query": "lofi hip hop mix beats to relax study to",
+      "sets": [
+        { "id": "jfKfPfyJRdk", "title": "lofi hip hop radio — beats to relax/study to" },
+        { "id": "7NOSDKb0HlU", "title": "lofi hip hop radio — beats to study/relax to" },
+        { "id": "rPjez8z61rI", "title": "lofi hip hop radio — beats to sleep/study/relax to" },
+        { "id": "CFGLoQIhmow", "title": "lofi hip hop mix — beats to relax/study to (Part 1)" },
+        { "id": "8b3fqIBrNW0", "title": "lofi hip hop mix — beats to relax/study to (Part 2)" },
+        { "id": "wciTByeqF20", "title": "lofi hip hop radio 24/7 — chill study beats" },
+        { "id": "yHGg160vHCw", "title": "let's be productive — lofi hip hop radio" }
+      ]
+    }
+  ]
+}

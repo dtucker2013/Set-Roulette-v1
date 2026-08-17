@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" data-genre="all">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0b0b12" />
+<meta name="description" content="Spin for a random YouTube DJ set. Riddim dubstep, hip hop, and lofi mixes." />
+<title>Set Roulette</title>
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="./assets/icon.svg" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link rel="preconnect" href="https://www.youtube-nocookie.com" />
+<link rel="preconnect" href="https://i.ytimg.com" />
+<link rel="stylesheet" href="./styles/main.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <h1>Set<span>Roulette</span></h1>
+  </div>
+  <button id="settings-open" class="icon-btn" type="button" aria-label="Settings">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7Z"/><path d="M19.4 13a7.7 7.7 0 0 0 0-2l2-1.5-2-3.5-2.4 1a7.6 7.6 0 0 0-1.7-1L15 3H9l-.3 2.6a7.6 7.6 0 0 0-1.7 1l-2.4-1-2 3.5L4.6 11a7.7 7.7 0 0 0 0 2l-2 1.5 2 3.5 2.4-1c.5.4 1.1.8 1.7 1L9 21h6l.3-2.6c.6-.2 1.2-.6 1.7-1l2.4 1 2-3.5Z"/></svg>
+  </button>
+</header>
+
+<main>
+  <!-- Genre filter -->
+  <nav class="genres" id="genres" aria-label="Genres">
+    <button class="chip is-active" type="button" data-genre="all">All</button>
+  </nav>
+
+  <!-- Player -->
+  <section class="stage" aria-label="Now playing">
+    <div class="frame" id="frame">
+      <div id="player"></div>
+      <div class="frame-idle" id="frame-idle">
+        <div class="wheel" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p>Hit <strong>Spin</strong> for a random set</p>
+      </div>
+      <div class="frame-msg" id="frame-msg" hidden role="status"></div>
+    </div>
+
+    <div class="meta">
+      <p class="eyebrow" id="np-genre"></p>
+      <h2 id="np-title">Nothing playing yet</h2>
+      <p class="sub" id="np-channel"></p>
+    </div>
+
+    <div class="controls">
+      <button id="spin" class="btn btn-primary" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4V1L8 5l4 4V6a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8Z"/></svg>
+        <span>Spin</span>
+      </button>
+      <button id="fav" class="btn btn-ghost" type="button" aria-pressed="false" aria-label="Save set" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 20-7.4-7.1a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9a4.6 4.6 0 0 1 6.5 6.5Z"/></svg>
+      </button>
+      <a id="yt-link" class="btn btn-ghost" href="#" target="_blank" rel="noopener" aria-label="Open on YouTube" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7h-2V6.4l-8.3 8.3-1.4-1.4L17.6 5H14Z"/><path d="M19 19H5V5h6V3H3v18h18v-8h-2Z"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Queue / browse -->
+  <section class="list-section">
+    <div class="list-head">
+      <h3 id="list-title">Up next</h3>
+      <div class="tabs" role="tablist">
+        <button class="tab is-active" type="button" data-view="browse" role="tab" aria-selected="true">Browse</button>
+        <button class="tab" type="button" data-view="saved" role="tab" aria-selected="false">Saved</button>
+        <button class="tab" type="button" data-view="history" role="tab" aria-selected="false">History</button>
+      </div>
+    </div>
+    <ul class="sets" id="sets"></ul>
+    <p class="empty" id="list-empty" hidden></p>
+  </section>
+</main>
+
+<!-- Settings sheet -->
+<div class="sheet-backdrop" id="sheet-backdrop" hidden></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
+  <div class="sheet-grab" aria-hidden="true"></div>
+  <h2 id="sheet-title">Settings</h2>
+
+  <label class="field">
+    <span class="field-label">YouTube Data API key <em>(optional)</em></span>
+    <input id="api-key" type="password" inputmode="text" autocomplete="off" spellcheck="false" placeholder="AIza…" />
+    <span class="hint">Without a key the app plays its built-in set list. With one, it pulls fresh popular mixes straight from YouTube search. Stored only on this device.</span>
+  </label>
+
+  <div class="row">
+    <button id="refresh-live" class="btn btn-primary btn-block" type="button">Pull fresh mixes</button>
+  </div>
+  <p class="hint" id="live-status" role="status"></p>
+
+  <label class="toggle">
+    <input type="checkbox" id="opt-autoplay" checked />
+    <span>Autoplay next set when one ends</span>
+  </label>
+  <label class="toggle">
+    <input type="checkbox" id="opt-nocookie" checked />
+    <span>Use privacy-enhanced player (youtube-nocookie)</span>
+  </label>
+
+  <div class="row">
+    <button id="clear-data" class="btn btn-ghost btn-block" type="button">Clear saved data</button>
+  </div>
+
+  <button id="sheet-close" class="btn btn-block" type="button">Done</button>
+</aside>
+
+<script src="./src/app.js" type="module"></script>
+</body>
+</html>

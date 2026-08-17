@@ -1,0 +1,16 @@
+{
+  "name": "Set Roulette",
+  "short_name": "SetRoulette",
+  "description": "Spin for a random YouTube DJ set — riddim dubstep, hip hop, and lofi mixes.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0b12",
+  "theme_color": "#0b0b12",
+  "categories": ["music", "entertainment"],
+  "icons": [
+    { "src": "./assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "./assets/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}
