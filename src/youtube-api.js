@@ -47,6 +47,67 @@ export async function searchMixes(apiKey, query, max = 25) {
     }));
 }
 
+/**
+ * Turn a channel entry from sets.json into a channel id.
+ * A known channelId wins; otherwise resolve the @handle; otherwise fall back to
+ * searching for the channel by name, taking the top hit.
+ */
+export async function resolveChannelId(apiKey, channel) {
+  if (channel.channelId) return channel.channelId;
+
+  if (channel.handle) {
+    const handle = channel.handle.startsWith('@') ? channel.handle : `@${channel.handle}`;
+    try {
+      const data = await call('channels', { key: apiKey, part: 'id', forHandle: handle });
+      const id = data.items?.[0]?.id;
+      if (id) return id;
+    } catch {
+      // fall through to the name search below
+    }
+  }
+
+  const data = await call('search', {
+    key: apiKey,
+    part: 'snippet',
+    q: channel.query || channel.name,
+    type: 'channel',
+    maxResults: '1',
+  });
+  return data.items?.[0]?.id?.channelId || null;
+}
+
+/**
+ * Newest long uploads from one channel. Restricting to `long` also filters out
+ * Shorts, which these channels post a lot of and which aren't sets.
+ * If a channel has no long uploads we retry at `medium` rather than come back empty.
+ */
+export async function searchChannelMixes(apiKey, channelId, max = 25) {
+  const fetchAt = async (videoDuration) => {
+    const data = await call('search', {
+      key: apiKey,
+      part: 'snippet',
+      channelId,
+      type: 'video',
+      videoDuration,
+      videoEmbeddable: 'true',
+      videoSyndicated: 'true',
+      order: 'date',
+      safeSearch: 'none',
+      maxResults: String(max),
+    });
+    return (data.items || [])
+      .filter((it) => it.id?.videoId)
+      .map((it) => ({
+        id: it.id.videoId,
+        title: decodeEntities(it.snippet.title),
+        channel: decodeEntities(it.snippet.channelTitle),
+      }));
+  };
+
+  const long = await fetchAt('long');
+  return long.length ? long : fetchAt('medium');
+}
+
 // The API returns HTML entities in titles (&amp;, &#39;, …).
 function decodeEntities(s = '') {
   const el = document.createElement('textarea');

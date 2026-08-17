@@ -10,7 +10,8 @@ const DEFAULTS = {
   favorites: [],     // video ids
   history: [],       // video ids, most recent first (capped)
   dead: [],          // ids that failed to load or refused embedding
-  live: null,        // { fetchedAt, genres: { [genreId]: [{id,title,channel}] } }
+  live: null,        // { fetchedAt, genres: { [genreId]: [{id,title,channel,from}] } }
+  channelIds: {},    // followed-channel handle -> resolved YouTube channel id
   meta: {},          // id -> { title, channel, checkedAt }
 };
 

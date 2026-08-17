@@ -274,10 +274,10 @@ function renderList() {
     body.append(title, sub);
     btn.append(img, body);
 
-    if (s.live) {
+    if (s.from || s.live) {
       const badge = document.createElement('span');
       badge.className = 't-badge';
-      badge.textContent = 'Fresh';
+      badge.textContent = s.from || 'Fresh';
       btn.appendChild(badge);
     }
 
@@ -298,6 +298,11 @@ function restoreSettings() {
   const live = store.get('live');
   if (live?.fetchedAt) {
     el.liveStatus.textContent = `Last pull: ${new Date(live.fetchedAt).toLocaleString()}`;
+  }
+
+  const followed = genres().flatMap((g) => (g.channels || []).map((c) => c.name));
+  if (followed.length) {
+    $('following').textContent = `Following: ${followed.join(' · ')} — their newest sets are pulled in first.`;
   }
 }
 
@@ -331,9 +336,11 @@ function wireSettings() {
     }
     el.refreshLive.disabled = true;
     try {
-      const n = await refreshLive(key, (msg) => { el.liveStatus.textContent = msg; });
+      const { total, problems } = await refreshLive(key, (msg) => { el.liveStatus.textContent = msg; });
       resetBag();
-      el.liveStatus.textContent = `Pulled ${n} fresh mixes.`;
+      el.liveStatus.textContent = problems.length
+        ? `Pulled ${total} mixes. ${problems.join(' ')}`
+        : `Pulled ${total} mixes.`;
       renderList();
       hydrateAll(setsFor('all').map((s) => s.id), () => {}).then(renderList);
     } catch (err) {

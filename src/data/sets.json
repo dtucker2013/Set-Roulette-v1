@@ -8,6 +8,9 @@
       "tagline": "Triplet bass, no survivors",
       "emoji": "🔊",
       "query": "riddim dubstep mix",
+      "channels": [
+        { "name": "clubstudiotime", "handle": "@clubstudiotime", "channelId": "UCSeCkgWfOtNyJ00YoUe4uoA" }
+      ],
       "sets": [
         { "id": "GXA6g_UPZz0", "title": "Best Riddim Dubstep Mix" },
         { "id": "dcpPPoZbi6U", "title": "Riddim Dubstep Mix — Samplifire, MUERTE, HOL!, SISTO" },
@@ -24,7 +27,11 @@
       "tagline": "Throwbacks and long DJ sets",
       "emoji": "🎤",
       "query": "hip hop dj mix throwback",
+      "channels": [
+        { "name": "Rob Sets", "handle": "@robsets", "query": "Rob Sets mix" }
+      ],
       "sets": [
+        { "id": "idRZjurCNuY", "title": "Rob Sets: Kickback & Vibe Vol. 2 — R&B, Hip-Hop, Afrobeats", "channel": "Rob Sets" },
         { "id": "mV5RvkmTvyg", "title": "90s / 2000s Hip Hop Mix — Old School Rap Classics" },
         { "id": "3ok23UzySrc", "title": "90s & 2000s Hip Hop + R&B Throwback — Late Night DJ Set" },
         { "id": "NYhplVq_tr0", "title": "Old School Hip Hop & R&B Mix — 1hr DJ Set" },

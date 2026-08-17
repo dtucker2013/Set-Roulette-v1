@@ -26,6 +26,26 @@ Two sources, and the app works with or without the second:
    by view count, so the catalog tracks what's actually popular right now. Results are
    tagged **Fresh** and sort above the built-ins.
 
+### Followed channels
+
+A genre can follow specific channels via a `channels` array in `src/data/sets.json`.
+On a live pull those channels are queried first and their uploads sort above general
+search results, badged with the channel name:
+
+| Genre | Channel |
+| --- | --- |
+| Riddim Dubstep | [clubstudiotime](https://www.youtube.com/@clubstudiotime) |
+| Hip Hop | Rob Sets |
+
+Each entry takes a `name` plus either a known `channelId` or an `@handle`. A handle is
+resolved to a channel id through the API and then cached, and if the handle doesn't
+resolve the app falls back to searching for the channel by name. Uploads are filtered
+to long videos, which also keeps Shorts out; a channel with no long uploads is retried
+at medium length rather than coming back empty.
+
+Because this path goes through the Data API, following a channel only takes effect once
+a key is set — without one you get whatever seed videos are listed for that channel.
+
 ### Keeping the built-in list honest
 
 A hardcoded video id rots: uploads get deleted, go private, or have embedding switched
