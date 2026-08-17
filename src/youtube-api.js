@@ -49,12 +49,13 @@ export async function searchMixes(apiKey, query, max = 25) {
 
 /**
  * Turn a channel entry from sets.json into a channel id.
- * A known channelId wins; otherwise resolve the @handle; otherwise fall back to
- * searching for the channel by name, taking the top hit.
+ *
+ * The @handle is tried first: it's the identifier a human actually confirms from a
+ * channel URL, and resolving it hands back the canonical id, so a stale or wrong
+ * channelId in the config corrects itself. The recorded channelId is the fallback
+ * for when a handle is changed or retired, and a by-name search is the last resort.
  */
 export async function resolveChannelId(apiKey, channel) {
-  if (channel.channelId) return channel.channelId;
-
   if (channel.handle) {
     const handle = channel.handle.startsWith('@') ? channel.handle : `@${channel.handle}`;
     try {
@@ -62,9 +63,11 @@ export async function resolveChannelId(apiKey, channel) {
       const id = data.items?.[0]?.id;
       if (id) return id;
     } catch {
-      // fall through to the name search below
+      // fall through
     }
   }
+
+  if (channel.channelId) return channel.channelId;
 
   const data = await call('search', {
     key: apiKey,

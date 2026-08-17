@@ -28,7 +28,7 @@
       "emoji": "🎤",
       "query": "hip hop dj mix throwback",
       "channels": [
-        { "name": "Rob Sets", "handle": "@robsets", "query": "Rob Sets mix" }
+        { "name": "Rob Sets", "handle": "@robsets", "channelId": "UC94PH2bV62krsKDmTl1iTcQ", "query": "Rob Sets mix" }
       ],
       "sets": [
         { "id": "idRZjurCNuY", "title": "Rob Sets: Kickback & Vibe Vol. 2 — R&B, Hip-Hop, Afrobeats", "channel": "Rob Sets" },
